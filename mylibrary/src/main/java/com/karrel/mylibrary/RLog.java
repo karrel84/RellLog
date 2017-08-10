@@ -20,6 +20,10 @@ public class RLog {
         SYSTEM_OUT_MODE = isSystemMode;
     }
 
+    public static final void e() {
+        e("");
+    }
+
     /**
      * Log Level Error
      **/
@@ -31,6 +35,10 @@ public class RLog {
             Log.e(TAG, buildLogMsg(message));
         }
 
+    }
+
+    public static final void w() {
+        w("");
     }
 
     /**
@@ -45,6 +53,10 @@ public class RLog {
         }
     }
 
+    public static final void i() {
+        i("");
+    }
+
     /**
      * Log Level Information
      **/
@@ -57,6 +69,10 @@ public class RLog {
         }
     }
 
+    public static final void d() {
+        d("");
+    }
+
     /**
      * Log Level Debug
      **/
@@ -67,6 +83,10 @@ public class RLog {
         } else {
             Log.d(TAG, buildLogMsg(message));
         }
+    }
+
+    public static final void v() {
+        v("");
     }
 
     /**
