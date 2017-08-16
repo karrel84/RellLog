@@ -21,7 +21,7 @@ public class RLog {
     }
 
     public static final void e() {
-        e("");
+        e("e");
     }
 
     /**
@@ -38,7 +38,7 @@ public class RLog {
     }
 
     public static final void w() {
-        w("");
+        w("w");
     }
 
     /**
@@ -54,7 +54,7 @@ public class RLog {
     }
 
     public static final void i() {
-        i("");
+        i("i");
     }
 
     /**
@@ -70,7 +70,7 @@ public class RLog {
     }
 
     public static final void d() {
-        d("");
+        d("d");
     }
 
     /**
@@ -86,7 +86,7 @@ public class RLog {
     }
 
     public static final void v() {
-        v("");
+        v("v");
     }
 
     /**
