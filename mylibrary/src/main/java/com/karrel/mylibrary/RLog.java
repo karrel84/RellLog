@@ -104,6 +104,7 @@ public class RLog {
     private static String buildLogMsg(String message) {
         StackTraceElement ste = Thread.currentThread().getStackTrace()[4];
         StringBuilder sb = new StringBuilder();
+        sb.append("\n");
         sb.append("[");
         sb.append(ste.getFileName().replace(".java", ""));
         sb.append("::");
