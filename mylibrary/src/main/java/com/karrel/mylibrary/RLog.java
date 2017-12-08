@@ -104,12 +104,12 @@ public class RLog {
     private static String buildLogMsg(String message) {
         StackTraceElement ste = Thread.currentThread().getStackTrace()[4];
         StringBuilder sb = new StringBuilder();
-        sb.append("\n");
         sb.append("[");
         sb.append(ste.getFileName().replace(".java", ""));
         sb.append("::");
         sb.append(ste.getMethodName());
         sb.append("]");
+        sb.append("\n");
         sb.append(message);
         return sb.toString();
     }
@@ -122,6 +122,7 @@ public class RLog {
         sb.append("::");
         sb.append(ste.getMethodName());
         sb.append("]");
+        sb.append("\n");
         sb.append(message);
         return sb.toString();
     }
