@@ -7,124 +7,147 @@ import android.util.Log;
  */
 
 public class RLog {
-    private static boolean PRINT_ENABLED_LOG = true;
-    private static boolean SYSTEM_OUT_MODE = false;
 
-    static final String TAG = "Rell";
+    static final String TAG = "RLog";
 
-    public static void setEnable(boolean enable) {
-        PRINT_ENABLED_LOG = enable;
-    }
+    private static boolean ENABLE_LOG = true;
 
-    public static void setSystemMode(boolean isSystemMode) {
-        SYSTEM_OUT_MODE = isSystemMode;
-    }
-
-    public static final void e() {
-        e("e");
+    /**
+     * 로그를 출력할지를 boolean 값의 파라미터로 전달.
+     */
+    public static void setEnableLog(boolean enableLog) {
+        ENABLE_LOG = enableLog;
     }
 
     /**
      * Log Level Error
      **/
     public static final void e(String message) {
-        if (!PRINT_ENABLED_LOG) return;
-        if (SYSTEM_OUT_MODE) {
-            System.out.println(buildSystemMsg(message));
-        } else {
-            Log.e(TAG, buildLogMsg(message));
-        }
+        if (!ENABLE_LOG) return;
 
+        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+
+        StackTraceElement element = elements[3];
+        String path = element.toString();
+
+        Log.e(TAG, String.format("%s -> %s", path, message));
+    }
+
+    public static final void e() {
+        if (!ENABLE_LOG) return;
+        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+
+        StackTraceElement element = elements[3];
+        String path = element.toString();
+
+        Log.e(TAG, String.format("%s -> %s", path, getMethodName(path)));
     }
 
     public static final void w() {
-        w("w");
+        if (!ENABLE_LOG) return;
+        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+
+        StackTraceElement element = elements[3];
+        String path = element.toString();
+
+        Log.w(TAG, String.format("%s -> %s", path, getMethodName(path)));
     }
 
     /**
      * Log Level Warning
      **/
     public static final void w(String message) {
-        if (!PRINT_ENABLED_LOG) return;
-        if (SYSTEM_OUT_MODE) {
-            System.out.println(buildSystemMsg(message));
-        } else {
-            Log.w(TAG, buildLogMsg(message));
-        }
+        if (!ENABLE_LOG) return;
+        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+
+        StackTraceElement element = elements[3];
+        String path = element.toString();
+
+        Log.w(TAG, String.format("%s -> %s", path, message));
     }
 
     public static final void i() {
-        i("i");
+        if (!ENABLE_LOG) return;
+        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+
+        StackTraceElement element = elements[3];
+        String path = element.toString();
+
+        Log.i(TAG, String.format("%s -> %s", path, getMethodName(path)));
     }
 
     /**
      * Log Level Information
      **/
     public static final void i(String message) {
-        if (!PRINT_ENABLED_LOG) return;
-        if (SYSTEM_OUT_MODE) {
-            System.out.println(buildSystemMsg(message));
-        } else {
-            Log.i(TAG, buildLogMsg(message));
-        }
+        if (!ENABLE_LOG) return;
+        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+
+        StackTraceElement element = elements[3];
+        String path = element.toString();
+
+        Log.i(TAG, String.format("%s -> %s", path, message));
     }
 
     public static final void d() {
-        d("d");
+        if (!ENABLE_LOG) return;
+        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+
+        StackTraceElement element = elements[3];
+        String path = element.toString();
+
+
+        Log.d(TAG, String.format("%s -> %s", path, getMethodName(path)));
+    }
+
+    private static String getMethodName(String path) {
+        String message = "";
+        try {
+            String[] arrStr = path.split("\\.");
+            if (arrStr.length > 2) {
+                String str2 = arrStr[arrStr.length - 2];
+                message = str2.substring(0, str2.indexOf("("));
+            }
+        } catch (Exception e) {
+
+        } finally {
+            return message + "()";
+        }
     }
 
     /**
      * Log Level Debug
      **/
     public static final void d(String message) {
-        if (!PRINT_ENABLED_LOG) return;
-        if (SYSTEM_OUT_MODE) {
-            System.out.println(buildSystemMsg(message));
-        } else {
-            Log.d(TAG, buildLogMsg(message));
-        }
+        if (!ENABLE_LOG) return;
+        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+
+        StackTraceElement element = elements[3];
+        String path = element.toString();
+
+        Log.d(TAG, String.format("%s -> %s", path, message));
     }
 
     public static final void v() {
-        v("v");
+        if (!ENABLE_LOG) return;
+        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+
+        StackTraceElement element = elements[3];
+        String path = element.toString();
+
+        Log.v(TAG, String.format("%s -> %s", path, getMethodName(path)));
     }
 
     /**
      * Log Level Verbose
      **/
     public static final void v(String message) {
-        if (!PRINT_ENABLED_LOG) return;
-        if (SYSTEM_OUT_MODE) {
-            System.out.println(buildSystemMsg(message));
-        } else {
-            Log.v(TAG, buildLogMsg(message));
-        }
-    }
+        if (!ENABLE_LOG) return;
+        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
 
-    private static String buildLogMsg(String message) {
-        StackTraceElement ste = Thread.currentThread().getStackTrace()[4];
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        sb.append(ste.getFileName().replace(".java", ""));
-        sb.append("::");
-        sb.append(ste.getMethodName());
-        sb.append("]");
-        sb.append("\n");
-        sb.append(message);
-        return sb.toString();
-    }
+        StackTraceElement element = elements[3];
+        String path = element.toString();
 
-    private static String buildSystemMsg(String message) {
-        StackTraceElement ste = Thread.currentThread().getStackTrace()[3];
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        sb.append(ste.getFileName().replace(".java", ""));
-        sb.append("::");
-        sb.append(ste.getMethodName());
-        sb.append("]");
-        sb.append("\n");
-        sb.append(message);
-        return sb.toString();
+        Log.v(TAG, String.format("%s -> %s", path, message));
     }
-
 }
